@@ -95,11 +95,14 @@
     <py-script>
         from js import console
         from pyodide import create_proxy
+        import traceback
 
         def runPython(event):
             value = document.editor.getValue()
-            eval(value + "\n" + "print(addKeysToUtils())")
-            document.getElementById("output").innerHTML = "Hello"
+            try:
+                eval(value + "\n" + "print(addKeysToUtils())")
+            except:
+                document.getElementById("output").innerHTML = traceback.format_exc()
 
         def submitPython(event):
             return
