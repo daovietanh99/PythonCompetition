@@ -41,7 +41,7 @@
 
     <py-script>
         from js import console
-        from pyodide.ffi import create_proxy
+        from pyodide import create_proxy
 
         def runPython(event):
             value = document.editor.getValue()
