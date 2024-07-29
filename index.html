@@ -59,14 +59,16 @@
             const container = document.getElementById('editor')
             const editorInstance = monaco.editor.create(container, {
                 value: [
-                    'def addKeysToUtils():',
+                    'def main():',
                     '  #add your code here',
-                    '  return',
                 ].join('\n'),
                 language: 'python'
             });
             const model = editorInstance.getModel();
             document.editor = editorInstance
+            document.breaker = {
+                getValue: () => `<br/>`
+            }
 
             const editorElement = document.getElementById("editor");
             window.addEventListener("resize", () => editorInstance.layout({
@@ -87,25 +89,29 @@
     </script>
 
     <py-script>
-        from js import console
-        from pyodide import create_proxy
-        import traceback
+from js import console
+from pyodide import create_proxy
+import traceback
 
-        def runPython(event):
-            value = document.editor.getValue()
-            try:
-                exec(value + "\n" + "print(addKeysToUtils())")
-            except:
-                document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", "\<br\/\>")
+def test(func):
+    document.getElementById("output").innerHTML = func()
 
-        def submitPython(event):
-            return
+def runPython(event):
+    value = document.editor.getValue()
+    break_str = document.breaker.getValue()
+    try:
+        exec(value + "\n" + "test(main)")
+    except:
+        document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", break_str)
 
-        run_function_proxy = create_proxy(runPython)
-        submit_function_proxy = create_proxy(submitPython)
-        
-        document.getElementById("run-button").addEventListener("click", run_function_proxy)
-        document.getElementById("submit-button").addEventListener("click", submit_function_proxy)
+def submitPython(event):
+    return
+
+run_function_proxy = create_proxy(runPython)
+submit_function_proxy = create_proxy(submitPython)
+
+document.getElementById("run-button").addEventListener("click", run_function_proxy)
+document.getElementById("submit-button").addEventListener("click", submit_function_proxy)
     </py-script>
 
 </body>
