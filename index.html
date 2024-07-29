@@ -103,8 +103,11 @@
         def submitPython(event):
             return
 
-        function_proxy = create_proxy(runPython)
-        document.getElementById("submit-button").addEventListener("click", function_proxy)
+        run_function_proxy = create_proxy(runPython)
+        submit_function_proxy = create_proxy(submitPython)
+        
+        document.getElementById("run-button").addEventListener("click", run_function_proxy)
+        document.getElementById("submit-button").addEventListener("click", submit_function_proxy)
     </py-script>
 
 </body>
