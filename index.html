@@ -94,7 +94,8 @@ from pyodide import create_proxy
 import traceback
 
 def test(func):
-    document.getElementById("output").innerHTML = func()
+    break_str = document.breaker.getValue()
+    document.getElementById("output").innerHTML = func().replace("\n", break_str)
 
 def runPython(event):
     value = document.editor.getValue()
