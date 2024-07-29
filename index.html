@@ -96,7 +96,7 @@
             try:
                 eval(value + "\n" + "print(addKeysToUtils())")
             except:
-                document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", "<br/>")
+                document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", "/<br/>")
 
         def submitPython(event):
             return
