@@ -94,7 +94,7 @@
         def runPython(event):
             value = document.editor.getValue()
             try:
-                eval(value + "\n" + "print(addKeysToUtils())")
+                exec(value + "\n" + "print(addKeysToUtils())")
             except:
                 document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", "\<br\/\>")
 
