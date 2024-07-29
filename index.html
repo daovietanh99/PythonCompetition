@@ -39,22 +39,6 @@
         </div>
     </div>
 
-    <py-script>
-        from js import console
-        from pyodide import create_proxy
-
-        def runPython(event):
-            value = document.editor.getValue()
-            eval(value + "\n" + "print(addKeysToUtils())")
-            document.getElementById("output").innerHTML = "Hello"
-
-        def submitPython(event):
-            return
-
-        function_proxy = create_proxy(runPython)
-        document.getElementById("submit-button").addEventListener("click", function_proxy)
-    </py-script>
-
     <script src="./js/monaco/loader.min.js"></script>
 
     <script>
@@ -106,6 +90,22 @@
             saveValueSomewhere(value);
         }
     </script>
+
+    <py-script>
+        from js import console
+        from pyodide import create_proxy
+
+        def runPython(event):
+            value = document.editor.getValue()
+            eval(value + "\n" + "print(addKeysToUtils())")
+            document.getElementById("output").innerHTML = "Hello"
+
+        def submitPython(event):
+            return
+
+        function_proxy = create_proxy(runPython)
+        document.getElementById("submit-button").addEventListener("click", function_proxy)
+    </py-script>
 
 </body>
 
