@@ -63,8 +63,8 @@
         window.MonacoEnvironment = {
             getWorkerUrl: function (workerId, label) {
                 return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
-                    self.MonacoEnvironment = { baseUrl: "./js/monaco/" };
-                    importScripts("./worker.min.js");`
+                    self.MonacoEnvironment = { baseUrl: "https://daovietanh99.github.io/PythonCompetition/js/monaco/min/" };
+                    importScripts("https://daovietanh99.github.io/PythonCompetition/js/monaco/worker.min.js");`
                 )}`;
             }
         };
