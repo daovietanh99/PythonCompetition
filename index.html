@@ -43,9 +43,12 @@
         from pyodide.ffi import create_proxy
 
         def runPython(event):
-        value = document.editor.getValue()
-        eval(value + "\n" + "print(addKeysToUtils())")
-        document.getElementById("output").innerHTML = "Hello"
+            value = document.editor.getValue()
+            eval(value + "\n" + "print(addKeysToUtils())")
+            document.getElementById("output").innerHTML = "Hello"
+
+        def submitPython(event):
+            return
 
         function_proxy = create_proxy(runPython)
         document.getElementById("submit-button").addEventListener("click", function_proxy)
@@ -60,8 +63,8 @@
         window.MonacoEnvironment = {
             getWorkerUrl: function (workerId, label) {
                 return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
-            self.MonacoEnvironment = { baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.29.1/min/" };
-            importScripts("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.29.1/min/vs/base/worker/workerMain.min.js");`
+                    self.MonacoEnvironment = { baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.29.1/min/" };
+                    importScripts("./js/monaco/worker.min.js");`
                 )}`;
             }
         };
