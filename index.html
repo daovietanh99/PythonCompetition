@@ -106,7 +106,7 @@ def test(func):
     break_str = document.breaker.getValue()
     document.term.write('\x1b[H\x1b[2J')
     document.term.write('\n')
-    document.term.write('    ')
+    document.term.write('    $')
     document.term.write(func().replace("\n", break_str))
 
 def runPython(event):
@@ -117,7 +117,7 @@ def runPython(event):
     except:
         document.term.write('\x1b[H\x1b[2J')
         document.term.write('\n')
-        document.term.write('    ')
+        document.term.write('    $')
         document.term.write(traceback.format_exc().replace("\n", break_str))
 
 def submitPython(event):
