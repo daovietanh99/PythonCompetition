@@ -8,11 +8,13 @@
     <script src="./js/pyodide/pyodide.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script> -->
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <link rel="stylesheet" href="./js/xterm/xterm.css">
     <script defer src="./js/pyscript/pyscript.js"></script>
     <!-- <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
     <link rel="stylesheet" href="./js/constrained-editor-plugin/dist/constrainedEditorPlugin.css">
     <script src="./js/constrained-editor-plugin/dist/constrainedEditorPlugin.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./js/xterm/xterm.js"></script>
     <style>
         .sketch {
             border-top-left-radius: 255px 15px;
@@ -23,7 +25,7 @@
     </style>
 </head>
 
-<body class="relative p-0 m-0 w-full overflow-hidden">
+<body class="relative p-0 m-0 w-full">
     <div class="w-full h-screen flex flex-col">
         <div class="w-full h-[50%] border-black border-4 sketch p-4">
 
@@ -41,6 +43,13 @@
     </div>
 
     <script src="./js/monaco/loader.min.js"></script>
+
+    <script>
+        document.term = new Terminal();
+        document.term.open(document.getElementById('output'));
+        document.term.write("\n")
+        document.term.write('    Hello from \x1B[1;3;31mvkist\x1B[0m $ ')
+    </script>
 
     <script>
         // Proxy Monaco Editor workers using a data URL (adapted from: https://github.com/microsoft/monaco-editor/blob/main/docs/integrate-amd-cross.md)
@@ -95,7 +104,10 @@ import traceback
 
 def test(func):
     break_str = document.breaker.getValue()
-    document.getElementById("output").innerHTML = func().replace("\n", break_str)
+    document.term.write('\x1b[H\x1b[2J')
+    document.term.write('\n')
+    document.term.write('    ')
+    document.term.write(func().replace("\n", break_str))
 
 def runPython(event):
     value = document.editor.getValue()
@@ -103,7 +115,10 @@ def runPython(event):
     try:
         exec(value + "\n" + "test(main)")
     except:
-        document.getElementById("output").innerHTML = traceback.format_exc().replace("\n", break_str)
+        document.term.write('\x1b[H\x1b[2J')
+        document.term.write('\n')
+        document.term.write('    ')
+        document.term.write(traceback.format_exc().replace("\n", break_str))
 
 def submitPython(event):
     return
@@ -114,6 +129,8 @@ submit_function_proxy = create_proxy(submitPython)
 document.getElementById("run-button").addEventListener("click", run_function_proxy)
 document.getElementById("submit-button").addEventListener("click", submit_function_proxy)
     </py-script>
+
+    <script type="py" terminal>print("hello world")</script>
 
 </body>
 
